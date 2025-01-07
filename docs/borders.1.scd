@@ -56,7 +56,7 @@ If an instance of *borders* is already running, subsequent invocations will
 update the existing process with the new arguments.
 
 If no instance of *borders* is running and no arguments are supplied, we try
-to execute a file at ~/.config/borders/bordersrc where a configuration command
+to execute a file at ~/$XDG_CONFIG_HOME/borders/bordersrc where a configuration command
 could be issued.
 
 # NOMENCLATURE

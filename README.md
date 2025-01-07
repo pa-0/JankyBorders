@@ -51,10 +51,10 @@ The appearance can be adapted at any point in time.
 #### Using a configuration file (Optional)
 If the primary `borders` process is started without any arguments (or launched
 as a service by brew), it will search for a file at
-`~/.config/borders/bordersrc` and execute it on launch if found.
+`$XDG_CONFIG_HOME/borders/bordersrc` and execute it on launch if found.
 
 An example configuration file could look like this:
-`~/.config/borders/bordersrc`
+`$XDG_CONFIG_HOME/borders/bordersrc`
 ```bash
 #!/bin/bash
 

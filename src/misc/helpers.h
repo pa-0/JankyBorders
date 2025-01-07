@@ -47,18 +47,34 @@ static inline bool file_setx(const char* filename) {
 }
 
 static inline void execute_config_file(const char* name, const char* filename) {
-  char *home = getenv("HOME");
-  if (!home) return;
-
-  uint32_t size = strlen(home) + strlen(name) + strlen(filename) + 256;
-  char path[size];
-  snprintf(path, size, "%s/.config/%s/%s", home, name, filename);
-  if (!file_exists(path)) {
-    snprintf(path, size, "%s/.%s", home, filename);
-    if (!file_exists(path)) {
-      debug("No config file found...\n");
+  char *xcfg = getenv("XDG_CONFIG_HOME")
+  if (!xcfg){
+    char *home = getenv("HOME");
+    if (!home){
       return;
-    };
+    } else{
+      uint32_t size = strlen(home) + strlen(name) + strlen(filename) + 256;
+      char path[size];
+      snprintf(path, size, "%s/.config/%s/%s", home, name, filename);
+      if (!file_exists(path)) {
+        snprintf(path, size, "%s/.%s", home, filename);
+        if (!file_exists(path)) {
+          debug("No config file found...\n");
+          return;
+        };
+      }
+    }
+  } else {
+    uint32_t size = strlen(xcfg) + strlen(name) + strlen(filename) + 256;
+    char path[size];
+    snprintf(path, size, "%s/%s/%s", xcfg, name, filename);
+    if (!file_exists(path)) {
+      snprintf(path, size, "%s/.%s", xcfg, filename);
+      if (!file_exists(path)) {
+        debug("No config file found...\n");
+        return;
+      };
+    }
   }
 
   if (!file_setx(path)) {
